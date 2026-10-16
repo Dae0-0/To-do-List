@@ -1,0 +1,198 @@
+/*
+COLORS
+================================================ */
+:root {
+    --navy: #22305a;
+    --blue: #3f6fd8;
+    --light-blue: #e8eefc;
+    --orange: #ff9f67;
+    --red: #d9534f;
+    --grey: #333;
+    --light-grey: #9aa0ad;
+    --white: #fff;
+}
+
+* { box-sizing: border-box; }
+
+/*
+일반 스타일
+================================================ */
+html {
+    font-size: 125%;
+}
+
+body {
+    background: linear-gradient(160deg, var(--light-blue), #fdf1e8);
+    color: var(--grey);
+    font-family: "Noto Sans KR", sans-serif;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+
+h1 {
+    font-family: "Do Hyeon", "Noto Sans KR", sans-serif;
+    font-size: 2.5rem;
+    color: var(--navy);
+    text-align: center;
+    letter-spacing: .05em;
+}
+
+p {
+    line-height: 1.7;
+}
+
+
+/*
+APP 카드
+================================================ */
+.todo-app {
+    max-width: 560px;
+    margin: 0 auto;
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 14px 40px rgba(34, 48, 90, .18);
+}
+
+.todo-sub {
+    text-align: center;
+    color: var(--light-grey);
+    margin-bottom: 1.5rem;
+}
+
+
+/*
+입력 폼
+================================================ */
+.todo-form {
+    display: flex;
+    gap: .5rem;
+    margin-bottom: 1.5rem;
+}
+
+.todo-input {
+    flex: 1;
+    min-width: 0;
+    border: 2px solid var(--light-blue);
+    border-radius: 12px;
+    padding: .8rem 1rem;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color .3s;
+}
+
+.todo-input:focus {
+    outline: none;
+    border-color: var(--blue);
+}
+
+.add-btn {
+    background: var(--blue);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 0 1.4rem;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: background .3s;
+}
+
+.add-btn:hover {
+    background: var(--navy);
+}
+
+
+/*
+할 일 목록
+================================================ */
+.todo-list {
+    list-style: none;
+    padding: 0;
+}
+ 
+.todo-item {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    padding: .9rem .5rem;
+    border-bottom: 1px solid var(--light-grey);
+}
+
+/* 체크박스 꾸미기 */
+.todo-item input[type="checkbox"] {
+    appearance: auto;
+    width: 1.3rem;
+    height: 1.3rem;
+    accent-color: var(--blue);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.todo-text {
+    flex: 1;
+    font-size: 1.05rem;
+    word-break: break-all;
+    transition: color .3s;
+} 
+
+/* 부모의 상태에 따라 자식 모양 바꾸기 */
+/* 완료된 항목: 글자에 취소선 + 흐린 색 */
+.todo-item.done .todo-text {
+    text-decoration: line-through;
+    color: var(--light-grey);
+}
+
+.del-btn {
+    color: var(--red);
+    border: 1px solid var(--red);
+    border-radius: 8px;
+    padding: .5rem .7rem;
+    font-size: .85rem;
+    transition: .3s;
+}
+
+.del-btn:hover {
+    background: var(--red);
+    color: var(--white);
+}
+
+.empty-msg {
+    text-align: center;
+    color: var(--light-grey);
+    padding: 1.5rem 0;
+    display: none;
+}
+
+.empty-msg.show {
+    display: block;
+}
+
+
+/*
+하단 영역
+================================================ */
+.todo-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.todo-count {
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.clear-btn {
+    background: var(--blue);
+    color: var(--white);
+    border-radius: 10px;
+    padding: .6rem;
+    font-size: .9rem;
+    font-weight: 700;
+    transition: background .3s;
+}
+
+.clear-btn:hover {
+    color: var(--red);
+    background: var(--orange);
+}

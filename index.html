@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <title>My To-do List</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/destyle.css@1.0.5/destyle.css">
+        <link href="css/style.css" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <main class="todo-app">
+            <h1>My To-do List</h1>
+            <p class="todo-sub">오늘 해야 할 일을 적어 보세요.</p>
+
+            <!-- 할 일 입력 폼: Enter 키와 버튼 클릭 모두 'submit' 이벤트로 처리된다 -->
+            <form class="todo-form">
+                <input class="todo-input" type="text" maxlength="40" 
+                       placeholder="예 : 자바스크립트 복습하기" autocomplete="off">
+                <button class="add-btn" type="submit">추가</button>
+            </form>
+
+            <!-- 할 일 목록: li 요소는 JavaScript가 만들어서 넣는다 -->
+            <ul class="todo-list"></ul>
+
+            <!-- 목록이 비어 있을 때만 보이는 안내 문구 -->
+            <p class="empty-msg">할 일이 없습니다. 위에서 추가해 보세요!</p>
+
+            <div class="todo-footer">
+                <p class="todo-count">남은 할 일 0개</p>
+                <button class="clear-btn" type="button">완료 항목 삭제</button>
+            </div>
+        </main>
+
+        <!-- JavaScript -->
+        <script src="js/script.js"></script>
+    </body>
+</html>
