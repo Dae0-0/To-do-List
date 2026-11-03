@@ -10,6 +10,20 @@ COLORS
     --grey: #333;
     --light-grey: #9aa0ad;
     --white: #fff;
+
+    /* 남은 시간 표시에 쓰는 색상 */
+    --green : #2e9e5b;
+    --green-bg : #eefaf2;
+    --urgent : #f57c00;
+    --urgent-bg : #fff4e5;
+
+    /* 노트 디자인에 쓰는 색상 */
+    --desk : #d9c9ae;
+    --paper : #fffdf5;
+    --paper-line : #dfe7f3;
+    --margin-red : #eaa6a0;
+    --stitch : #e0a98f;
+    --memo : #fff8dc;
 }
 
 * { box-sizing: border-box; }
@@ -22,7 +36,7 @@ html {
 }
 
 body {
-    background: linear-gradient(160deg, var(--light-blue), #fdf1e8);
+    background: repeating-linear-gradient(45deg, rgba(255,255,255,.10) 0 12px, transparent 12px 24px), var(--desk);
     color: var(--grey);
     font-family: "Noto Sans KR", sans-serif;
     min-height: 100vh;
@@ -30,11 +44,33 @@ body {
 }
 
 h1 {
-    font-family: "Do Hyeon", "Noto Sans KR", sans-serif;
-    font-size: 2.5rem;
+    display: inline-block;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 2.6rem;
+    font-weight: 800;
     color: var(--navy);
     text-align: center;
-    letter-spacing: .05em;
+    letter-spacing: .02em;
+    line-height: 1.2;
+    padding: 0 .6rem;
+    background: linear-gradient(transparent 62%, #ffe08a 62%);
+}
+
+.now-time {
+    margin-top: .3rem;
+    font-family: "Gaegu", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #7a5f3e;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.clock {
+    display: inline-block;
+    width: 4.3rem;
+    text-align: left;
 }
 
 p {
@@ -46,12 +82,39 @@ p {
 APP 카드
 ================================================ */
 .todo-app {
-    max-width: 560px;
+    max-width: 1000px;
+    position: relative;
     margin: 0 auto;
     background: var(--white);
-    border-radius: 20px;
-    padding: 2rem 1.5rem;
-    box-shadow: 0 14px 40px rgba(34, 48, 90, .18);
+    border-radius: 10px 18px 18px 10px;
+    padding: 1.8rem 2rem 2.2rem 4.6rem;
+    box-shadow: 0 14px 30px rgba(70, 50, 20, .28), 0 2px 0 #efe6d2;
+}
+
+.todo-app::before {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    top: 1.4rem;
+    bottom: 1.6rem;
+    width: 1.6rem;
+    background: radial-gradient(circle at center, #cdbfa8 0 .42rem, #a89a82 .47rem, #8f8169 .55rem, transparent .6rem) 0 0 / 1.6rem 3.2rem repeat-y;
+}
+
+.todo-app::after {
+    content: "";
+    position: absolute;
+    left: 3.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--margin-red);
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 1.6rem;
+
 }
 
 .todo-sub {
@@ -60,6 +123,55 @@ APP 카드
     margin-bottom: 1.5rem;
 }
 
+.app-body {
+    display: grid;
+    /* 왼쪽 오른쪾 = 1 : 1.5 비율 */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    align-items: start;
+}
+
+.panel-title {
+    display: inline-block;
+    margin-bottom: 1.1rem;
+    padding: .1rem, .9rem;
+    background: #fff1c2;
+    border-radius: 6px;
+    transform: rotate(-1.5deg); /* 살짝 기울인 라벨지 느낌*/
+    font-family: "Gaegu", "Noto Sans KR", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+/* 왼쪽 점 무늬 메모지 */
+.panel-input {
+    padding: 1.2rem 1.3rem 1.5rem;
+    margin-right: 2rem;
+    background: 
+        radial-gradient(#d9ceb2 1px, transparent 1.3px) 0 0 / 10px 10px,
+        var(--memo);
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(120, 90, 40, .18);
+}
+
+/* 오른쪽 점선(바느질 자국) 구분선, 가위 아이콘 */
+.panel-list {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 3px dashed var(--stitch);
+}
+
+.panel-list::before {
+    content: "✂️";
+    position: absolute;
+    left: -.75rem;
+    top: -.3rem;
+    padding: .1rem 0;
+    background: var(--paper);
+    color: #c98f72;
+    font-size: 1.1rem;
+    line-height: 1;
+}
 
 /*
 입력 폼
@@ -67,11 +179,11 @@ APP 카드
 .todo-form {
     display: flex;
     gap: .5rem;
-    margin-bottom: 1.5rem;
+    flex-direction: column; /* 세로로 쌓기 */
 }
 
 .todo-input {
-    flex: 1;
+    width: 100%;
     min-width: 0;
     border: 2px solid var(--light-blue);
     border-radius: 12px;
@@ -86,12 +198,43 @@ APP 카드
     border-color: var(--blue);
 }
 
+/* 완료 날짜 시간 입력 줄 */
+/* 라벨과 입력창을 세로로 쌓는다. */
+.due-row {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+}
+
+.due-label {
+    color: #8a6d4b;
+    font-size: .9rem;
+    font-weight: 700;
+}
+
+.todo-due-input {
+    width: 100%;
+    border: 2px solid #ece3cf;
+    border-radius: 12px;
+    padding: .6rem .8rem;
+    background: var(--white);
+    font-family: inherit;
+    font-size: .85rem;
+    color: var(--grey);
+}
+
+.todo-due-input:focus {
+    outline: none;
+    border-color: var(--blue);
+}
+
 .add-btn {
+    width: 100%;
     background: var(--blue);
     color: var(--white);
     border-radius: 12px;
-    padding: 0 1.4rem;
-    font-size: 1rem;
+    padding: .85rem 1.4rem;
+    font-size: 1.1rem;
     font-weight: 700;
     transition: background .3s;
 }
@@ -114,7 +257,8 @@ APP 카드
     align-items: center;
     gap: .8rem;
     padding: .9rem .5rem;
-    border-bottom: 1px solid var(--light-grey);
+    border-left: 5px solid transparent; /* 남은 시간 상태 표시 */
+    transition: background .3s; /* 마우스 올리면 배경색 바뀌도록 */
 }
 
 /* 체크박스 꾸미기 */
@@ -127,12 +271,25 @@ APP 카드
     flex-shrink: 0;
 }
 
-.todo-text {
+.todo-body {
     flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-text {
+    /* flex: 1; */
     font-size: 1.05rem;
     word-break: break-all;
     transition: color .3s;
 } 
+
+.todo-due {
+    margin-top: .15rem;
+    font-size: .85rem;
+    color: var(--light-grey);
+}
 
 /* 부모의 상태에 따라 자식 모양 바꾸기 */
 /* 완료된 항목: 글자에 취소선 + 흐린 색 */
@@ -141,6 +298,46 @@ APP 카드
     color: var(--light-grey);
 }
 
+/* 남은 시간 상태 클래스 */
+.todo-item.safe { 
+    border-left-color: var(--green);
+    background: var(--green-bg);
+}
+
+.todo-item.safe .todo-due {
+    color: var(--green);
+    font-weight: 700;
+}
+
+.todo-item.urgent {
+    border-left-color: var(--urgent);
+    background: var(--urgent-bg);
+}
+
+.todo-item.urgent .todo-due {
+    color: var(--urgent);
+    font-weight: 700;
+}
+
+.todo-item.overdue .todo-due {
+    color: var(--red);
+    font-weight: 700;
+}
+
+/* 깜빡이는 아이콘 */
+.blink-icon {
+    display: inline-block;
+    margin-right: .25rem;
+    animation: blink 0.9s infinite;
+}
+
+/* 깜빡이는 애니메이션 */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .1; }
+}
+
+/* 삭제 버튼 */
 .del-btn {
     color: var(--red);
     border: 1px solid var(--red);
@@ -155,6 +352,8 @@ APP 카드
     color: var(--white);
 }
 
+
+/* 할 일 목록이 비었을 때 안내 문구 */
 .empty-msg {
     text-align: center;
     color: var(--light-grey);
@@ -175,6 +374,8 @@ APP 카드
     justify-content: space-between;
     align-items: center;
     margin-top: 1rem;
+    flex-wrap: wrap; /* 좁은 화면 줄바꿈 */
+    gap: .6rem;
 }
 
 .todo-count {
@@ -195,4 +396,42 @@ APP 카드
 .clear-btn:hover {
     color: var(--red);
     background: var(--orange);
+}
+
+/* 모바일 화면일 때 */
+@media (max-width: 768px) {
+    .todo-app {
+        padding: 1.4rem .8rem 1.8rem 3.2rem;
+    }
+    .todo-app::before {
+        left: .6rem;
+    }
+    .todo-app::after {
+        left: 2.6rem;
+    }
+
+    .app-body {
+        /* 안쪽 내용 때문에 칸이 넓어지는걸 막는다 */
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    h1 {
+        font-size: 2rem;
+        white-space: nowrap;
+    }
+
+    .panel-input {
+        margin-right: 0;
+        margin-bottom: 2rem;
+    }
+    .panel-list {
+        padding-left: 0;
+        padding-top: 1.6rem;
+        border-left: none;
+        border-top: 3px dashed var(--stitch); /* 세로 점선 -> 가로 점선 */
+    }
+    .panel-list::before {
+        left: 1rem;
+        top: -.7rem;
+    }
 }
